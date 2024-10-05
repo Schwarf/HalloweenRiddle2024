@@ -1,36 +1,32 @@
 package abs.halloween2024
 
+import abs.halloween2024.ui.theme.HalloweenRiddle2024Theme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import abs.halloween2024.ui.theme.HalloweenRiddle2024Theme
-import android.graphics.PointF
+import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.InfiniteRepeatableSpec
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.blur
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -43,6 +39,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,9 +57,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun IchBinGeistina(
-    onButtonClick :() -> Unit
-)
-{
+    onButtonClick: () -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
         Image(
@@ -83,7 +79,8 @@ fun IchBinGeistina(
                     fontSize = 25.sp
                 ),
             )
-            Button(onClick = {onButtonClick()},
+            Button(
+                onClick = { onButtonClick() },
             ) {
                 Text(text = "Ja!")
             }
@@ -93,8 +90,7 @@ fun IchBinGeistina(
 }
 
 @Composable
-fun Luigina(onButtonClick :() -> Unit)
-{
+fun Luigina(onButtonClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
         Image(
@@ -104,9 +100,13 @@ fun Luigina(onButtonClick :() -> Unit)
             modifier = Modifier.matchParentSize()
         )
         Column(modifier = Modifier.padding(16.dp)) {
-                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+//                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
+//                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
+
+            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
                         "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
+                        "Vielleicht finden wir eine Nachricht von ihr.", textColor = Color.White)
 
 //            PulsatingGlowingText(
 //                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
@@ -130,8 +130,7 @@ fun Luigina(onButtonClick :() -> Unit)
 
 
 @Composable
-fun Aufgabe()
-{
+fun Aufgabe() {
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
         Image(
@@ -144,14 +143,46 @@ fun Aufgabe()
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Bevor sie verschwunden ist hat Luigina mir gesagt, dass ich ihr Smartphone finden muss. \n "+
+                text = "Bevor sie verschwunden ist hat Luigina mir gesagt, dass ich ihr Smartphone finden muss. \n " +
                         "Dann hat sie mir noch das hier geschickt: \n" +
                         " 5 + 8 = ? \n" +
                         " 3 x 7 = ? \n" +
-                            " 14 + 19 = ? \n", glowColor = Color.Red, textColor = Color.White, alpha=0.8f)
+                        " 14 + 19 = ? \n",
+                glowColor = Color.Red,
+                textColor = Color.White,
+                alpha = 0.8f
+            )
         }
     }
 
+}
+
+@Composable
+fun ColorChangingGlowingText(text: String, textColor: Color) {
+    val alpha = remember { Animatable(0f) }
+    val glowColor = remember { Animatable(Color.Green) }
+    val colors = listOf(Color.Green, Color.Red, Color.Yellow, Color.Blue)
+    var colorIndex = 0
+
+    LaunchedEffect(key1 = "glow") {
+        while (true) {
+            alpha.animateTo(1f, animationSpec = TweenSpec(1000, easing = LinearEasing))
+            delay(500)  // Keep the glow at full intensity for a bit
+            alpha.animateTo(0f, animationSpec = TweenSpec(1000, easing = LinearEasing))
+            glowColor.animateTo(
+                colors[colorIndex],
+                animationSpec = TweenSpec(1000, easing = LinearEasing)
+            )
+            colorIndex = (colorIndex + 1) % colors.size
+        }
+    }
+
+    GlowingText(
+        text = text,
+        glowColor = glowColor.value,
+        textColor = textColor,
+        alpha = alpha.value
+    )
 }
 
 
@@ -191,15 +222,17 @@ fun GlowingText(text: String, glowColor: Color, textColor: Color, alpha: Float) 
                 blurRadius = 16f
             )
         ),
-        modifier = Modifier.graphicsLayer(alpha = alpha).drawWithContent {
-            drawContent()
-            withTransform({
-                translate(left = 4f, top = 4f)
-                scale(scaleX = 1.01f, scaleY = 1.01f)
-            }) {
-                this@drawWithContent.drawContent()
+        modifier = Modifier
+            .graphicsLayer(alpha = alpha)
+            .drawWithContent {
+                drawContent()
+                withTransform({
+                    translate(left = 4f, top = 4f)
+                    scale(scaleX = 1.01f, scaleY = 1.01f)
+                }) {
+                    this@drawWithContent.drawContent()
+                }
             }
-        }
     )
 }
 
