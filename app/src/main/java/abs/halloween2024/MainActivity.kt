@@ -13,13 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import abs.halloween2024.ui.theme.HalloweenRiddle2024Theme
 import android.graphics.PointF
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.InfiniteRepeatableSpec
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -95,10 +103,17 @@ fun Luigina(
             modifier = Modifier.matchParentSize()
         )
         Column(modifier = Modifier.padding(16.dp)) {
-                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White)
+//                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
+//                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
 
+            PulsatingGlowingText(
+                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
+                        "Vielleicht finden wir eine Nachricht von ihr.",
+                glowColor = Color.Green,
+                textColor = Color.White
+            )
 //            Button(onClick = {onButtonClick()},
 //            ) {
 //                Text(text = "Ja!")
@@ -109,8 +124,32 @@ fun Luigina(
 
 }
 
+
 @Composable
-fun GlowingText(text: String, glowColor: Color, textColor: Color) {
+fun PulsatingGlowingText(text: String, glowColor: Color, textColor: Color) {
+    val alpha = remember { Animatable(0f) }
+    val animationSpec: AnimationSpec<Float> = InfiniteRepeatableSpec(
+        animation = TweenSpec(durationMillis = 1500, easing = { it }),
+        repeatMode = RepeatMode.Reverse
+    )
+
+    LaunchedEffect(key1 = true) {
+        alpha.animateTo(
+            targetValue = 1f,
+            animationSpec = animationSpec
+        )
+    }
+
+    GlowingText(
+        text = text,
+        glowColor = glowColor,
+        textColor = textColor,
+        alpha = alpha.value
+    )
+}
+
+@Composable
+fun GlowingText(text: String, glowColor: Color, textColor: Color, alpha: Float) {
     BasicText(
         text = text,
         style = TextStyle(
@@ -122,7 +161,7 @@ fun GlowingText(text: String, glowColor: Color, textColor: Color) {
                 blurRadius = 16f
             )
         ),
-        modifier = Modifier.graphicsLayer(alpha = 0.99f).drawWithContent {
+        modifier = Modifier.graphicsLayer(alpha = alpha).drawWithContent {
             drawContent()
             withTransform({
                 translate(left = 4f, top = 4f)
