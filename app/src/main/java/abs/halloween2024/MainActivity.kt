@@ -23,11 +23,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -113,9 +115,12 @@ fun Luigina(onButtonClick :() -> Unit)
 //                glowColor = Color.Green,
 //                textColor = Color.White
 //            )
-            Button(onClick = {onButtonClick()},
-            ) {
-                Text(text = "Weiter")
+            Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = { onButtonClick() },
+                ) {
+                    Text(text = "Weiter")
+                }
             }
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
         }
