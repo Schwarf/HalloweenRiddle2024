@@ -91,8 +91,7 @@ fun IchBinGeistina(
 }
 
 @Composable
-fun Luigina(
-)
+fun Luigina(onButtonClick :() -> Unit)
 {
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
@@ -103,22 +102,48 @@ fun Luigina(
             modifier = Modifier.matchParentSize()
         )
         Column(modifier = Modifier.padding(16.dp)) {
-//                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-//                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
-
-            PulsatingGlowingText(
-                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
                         "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-                        "Vielleicht finden wir eine Nachricht von ihr.",
-                glowColor = Color.Green,
-                textColor = Color.White
-            )
-//            Button(onClick = {onButtonClick()},
-//            ) {
-//                Text(text = "Ja!")
-//            }
+                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
+
+//            PulsatingGlowingText(
+//                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
+//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
+//                        "Vielleicht finden wir eine Nachricht von ihr.",
+//                glowColor = Color.Green,
+//                textColor = Color.White
+//            )
+            Button(onClick = {onButtonClick()},
+            ) {
+                Text(text = "Weiter")
+            }
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
+        }
+    }
+
+}
+
+
+@Composable
+fun Aufgabe()
+{
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Background image setup
+        Image(
+            painter = painterResource(R.drawable.garden),
+            contentDescription = null, // Background image does not require a description
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
+        )
+        val Purple = Color(0xFF800080)
+        Column(modifier = Modifier.padding(16.dp)) {
+            Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
+            GlowingText(
+                text = "Bevor sie verschwunden ist hat Luigina mir gesagt, dass ich ihr Smartphone finden muss. \n "+
+                        "Dann hat sie mir noch das hier geschickt: \n" +
+                        " 5 + 8 = ? \n" +
+                        " 3 x 7 = ? \n" +
+                            " 14 + 19 = ? \n", glowColor = Color.Red, textColor = Color.White, alpha=0.8f)
         }
     }
 
@@ -173,18 +198,3 @@ fun GlowingText(text: String, glowColor: Color, textColor: Color, alpha: Float) 
     )
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HalloweenRiddle2024Theme {
-        Greeting("Android")
-    }
-}

@@ -11,8 +11,8 @@ fun AppNavigation() {
 
     NavHost(navController = navController, startDestination = "halloween") {
         composable("halloween") { IchBinGeistina{navController.navigate("luigina")} }
-        composable("luigina") { Luigina() }
-//        composable("numbers") { NumberInputScreen { navController.navigate("images") } }
+        composable("luigina") { Luigina{navController.navigate("challenge")} }
+        composable("challenge") { Aufgabe()}
 //        composable("images") { Finale() }
     }
 }
