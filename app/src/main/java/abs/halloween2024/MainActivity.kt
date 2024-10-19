@@ -1,6 +1,7 @@
 package abs.halloween2024
 
 import abs.halloween2024.ui.theme.HalloweenRiddle2024Theme
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +61,7 @@ class MainActivity : ComponentActivity() {
 fun IchBinGeistina(
     onButtonClick: () -> Unit
 ) {
+    val context = LocalContext.current
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
         Image(
@@ -71,8 +74,7 @@ fun IchBinGeistina(
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             Text(
                 text = "Hallo Marta, \n " +
-                        "ich bin Geistina. Kannst Du mir bei einer wichtigen Aufgabe " +
-                        "helfen?",
+                        "ich bin Geistina. Kannst Du mir und meiner Schwester helfen?",
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -84,6 +86,12 @@ fun IchBinGeistina(
             ) {
                 Text(text = "Ja!")
             }
+            Button(
+                onClick = {(context as? Activity)?.finishAffinity()},
+            ) {
+                Text(text = "Lieber nicht!")
+            }
+
         }
     }
 
@@ -91,6 +99,7 @@ fun IchBinGeistina(
 
 @Composable
 fun Luigina(onButtonClick: () -> Unit) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         // Background image setup
         Image(
