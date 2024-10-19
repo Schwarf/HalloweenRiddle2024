@@ -114,8 +114,9 @@ fun Luigina(onButtonClick: () -> Unit) {
 //                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
 
             ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-                        "Vielleicht finden wir eine Nachricht von ihr.", textColor = Color.White)
+                        "Da es so viele Geister waren, hat sie unseren Schatz so gut versteckt, dass " +
+                    "ich ihn nicht mehr finde.", textColor = Color.White)
+
 
 //            PulsatingGlowingText(
 //                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
