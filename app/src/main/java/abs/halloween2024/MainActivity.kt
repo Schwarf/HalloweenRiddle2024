@@ -16,6 +16,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -72,15 +73,14 @@ fun IchBinGeistina(
         )
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
-            Text(
+            GlowingText(
                 text = "Hallo Marta, \n " +
                         "ich bin Geistina. Kannst Du mir und meiner Schwester helfen?",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    fontSize = 25.sp
-                ),
+                glowColor = Color.Red,
+                textColor = Color.White,
+                alpha = 0.8f
             )
+
             Button(
                 onClick = { onButtonClick() },
             ) {
@@ -109,27 +109,18 @@ fun Luigina(onButtonClick: () -> Unit) {
             modifier = Modifier.matchParentSize()
         )
         Column(modifier = Modifier.padding(16.dp)) {
-//                GlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-//                        "Vielleicht finden wir eine Nachricht von ihr.", glowColor = Color.Green, textColor = Color.White, alpha=0.99f)
 
-            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-                        "Da es so viele Geister waren, hat sie unseren Schatz so gut versteckt, dass " +
-                    "ich ihn nicht mehr finde.", textColor = Color.White)
+            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Sie war mit Yoshi unterwegs als sie von gemeinen Geister überfallen wurde." +
+                        "Es waren so viele Geister, dass Yoshi und Luigina getrennt wurden. Jetzt ist Yoshi verschwunden. Hilfst Du uns ihn zu finden?"
+                       , textColor = Color.White)
 
 
-//            PulsatingGlowingText(
-//                text = "Das ist meine Schwester Luigina. Die gemeinen Geister haben sie gejagt." +
-//                        "Da es so viele Geister waren, hat sie sich wohl versteckt. " +
-//                        "Vielleicht finden wir eine Nachricht von ihr.",
-//                glowColor = Color.Green,
-//                textColor = Color.White
-//            )
+            Spacer(modifier = Modifier.weight(100f))
             Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.fillMaxWidth()) {
                 Button(
                     onClick = { onButtonClick() },
                 ) {
-                    Text(text = "Weiter")
+                    Text(text = "Ja natürlich!")
                 }
             }
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
@@ -153,8 +144,8 @@ fun Aufgabe() {
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Bevor sie verschwunden ist hat Luigina mir gesagt, dass ich ihr Smartphone finden muss. \n " +
-                        "Dann hat sie mir noch das hier geschickt: \n" +
+                text = "Luigina ist ganz erschöpft und schläft. Sie hat mir erzählt, dass \n " +
+                        "die Geister ihr Werkzeug versteckt haben und ihr dieses Symbol gezeigt haben.: \n" +
                         " 5 + 8 = ? \n" +
                         " 3 x 7 = ? \n" +
                         " 14 + 19 = ? \n",
@@ -170,15 +161,15 @@ fun Aufgabe() {
 @Composable
 fun ColorChangingGlowingText(text: String, textColor: Color) {
     val alpha = remember { Animatable(0f) }
-    val glowColor = remember { Animatable(Color.Green) }
-    val colors = listOf(Color.Green, Color.Red, Color.Yellow, Color.Blue)
+    val glowColor = remember { Animatable(Color.Blue) }
+    val colors = listOf(Color.Red, Color.Blue, Color.Yellow, Color.Green)
     var colorIndex = 0
 
     LaunchedEffect(key1 = "glow") {
         while (true) {
-            alpha.animateTo(1f, animationSpec = TweenSpec(1000, easing = LinearEasing))
-            delay(500)  // Keep the glow at full intensity for a bit
-            alpha.animateTo(0f, animationSpec = TweenSpec(1000, easing = LinearEasing))
+            alpha.animateTo(1f, animationSpec = TweenSpec(2500, easing = LinearEasing))
+            delay(1500)  // Keep the glow at full intensity for a bit
+            alpha.animateTo(0f, animationSpec = TweenSpec(2500, easing = LinearEasing))
             glowColor.animateTo(
                 colors[colorIndex],
                 animationSpec = TweenSpec(1000, easing = LinearEasing)
@@ -200,7 +191,7 @@ fun ColorChangingGlowingText(text: String, textColor: Color) {
 fun PulsatingGlowingText(text: String, glowColor: Color, textColor: Color) {
     val alpha = remember { Animatable(0f) }
     val animationSpec: AnimationSpec<Float> = InfiniteRepeatableSpec(
-        animation = TweenSpec(durationMillis = 1500, easing = { it }),
+        animation = TweenSpec(durationMillis = 5000, easing = { it }),
         repeatMode = RepeatMode.Reverse
     )
 
