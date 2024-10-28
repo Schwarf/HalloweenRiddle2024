@@ -223,7 +223,7 @@ fun GlowingText(text: String, glowColor: Color, textColor: Color, alpha: Float) 
             shadow = Shadow(
                 color = glowColor,
                 offset = Offset(0f, 0f),
-                blurRadius = 16f
+                blurRadius = 8f // Reduced blur for a sharper effect
             )
         ),
         modifier = Modifier
@@ -232,7 +232,6 @@ fun GlowingText(text: String, glowColor: Color, textColor: Color, alpha: Float) 
                 drawContent()
                 withTransform({
                     translate(left = 4f, top = 4f)
-                    scale(scaleX = 1.01f, scaleY = 1.01f)
                 }) {
                     this@drawWithContent.drawContent()
                 }
