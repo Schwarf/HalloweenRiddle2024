@@ -144,13 +144,14 @@ fun Aufgabe() {
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Luigina ist ganz erschöpft und schläft. Sie hat mir erzählt, dass \n" +
-                        "die Gespenster den Brief mit Yoshis Gefängnis versteckt haben. Sie hat zwei Hinweise" +
-                        "aufgeschrieben. Vorsicht! Die Geister haben einen falschen Hinweis hinzugefügt.\n" +
+                text = "Luigina hat mir erzählt, dass Gespenster den Brief mit Yoshis Gefängnis " +
+                        "versteckt haben. Sie hat die Gespenster belauscht " +
+                        "und Hinweise aufgeschrieben. Aber Vorsicht, die Geister haben " +
+                        "vielleicht absichtlich falsche Hinweise gegeben." +
                         "\n"+
-                        "1. Finde alle Hinweise mit Dreiecken\n" +
-                        "2. Finde alle Hinweise mit Fünfecken\n" +
-                        "3. Finde alle Hinweise mit mehr als drei Ecken. \n",
+                        "1. Finde Hinweise mit Dreiecken\n" +
+                        "2. Finde Hinweise mit Fünfecken\n" +
+                        "3. Finde Hinweise mit Vierecken. \n",
                 glowColor = Color.Red,
                 textColor = Color.White,
                 alpha = 0.8f
