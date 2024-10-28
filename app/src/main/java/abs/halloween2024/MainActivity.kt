@@ -74,7 +74,7 @@ fun IchBinGeistina(
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Hallo Marta, \n " +
+                text = "Hallo Marta, \n" +
                         "ich bin Geistina. Kannst Du mir und meiner Schwester helfen?",
                 glowColor = Color.Red,
                 textColor = Color.White,
@@ -110,8 +110,8 @@ fun Luigina(onButtonClick: () -> Unit) {
         )
         Column(modifier = Modifier.padding(16.dp)) {
 
-            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Sie war mit Yoshi unterwegs als sie von gemeinen Geister überfallen wurde." +
-                        "Es waren so viele Geister, dass Yoshi und Luigina getrennt wurden. Jetzt ist Yoshi verschwunden. Hilfst Du uns ihn zu finden?"
+            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Sie war mit Yoshi unterwegs als sie von gemeinen Geister überfallen wurde. " +
+                        "Es waren so viele Geister, dass Yoshi und Luigina getrennt wurden. Yoshi wurde von den Gespenstern eingesperrt. Hilfst Du uns ihn zu befreien?"
                        , textColor = Color.White)
 
 
@@ -144,11 +144,13 @@ fun Aufgabe() {
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Luigina ist ganz erschöpft und schläft. Sie hat mir erzählt, dass \n " +
-                        "die Geister ihr Werkzeug versteckt haben und ihr dieses Symbol gezeigt haben.: \n" +
-                        " 5 + 8 = ? \n" +
-                        " 3 x 7 = ? \n" +
-                        " 14 + 19 = ? \n",
+                text = "Luigina ist ganz erschöpft und schläft. Sie hat mir erzählt, dass \n" +
+                        "die Gespenster den Brief mit Yoshis Gefängnis versteckt haben. Sie hat zwei Hinweise" +
+                        "aufgeschrieben. Vorsicht! Die Geister haben einen falschen Hinweis hinzugefügt.\n" +
+                        "\n"+
+                        "1. Finde alle Hinweise mit Dreiecken\n" +
+                        "2. Finde alle Hinweise mit Fünfecken\n" +
+                        "3. Finde alle Hinweise mit mehr als drei Ecken. \n",
                 glowColor = Color.Red,
                 textColor = Color.White,
                 alpha = 0.8f
