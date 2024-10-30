@@ -110,7 +110,7 @@ fun Luigina(onButtonClick: () -> Unit) {
         )
         Column(modifier = Modifier.padding(16.dp)) {
 
-            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Sie war mit Yoshi unterwegs als sie von gemeinen Geister überfallen wurde. " +
+            ColorChangingGlowingText(text = "Das ist meine Schwester Luigina. Sie war mit Yoshi unterwegs als sie von gemeinen Geistern überfallen wurde. " +
                         "Es waren so viele Geister, dass Yoshi und Luigina getrennt wurden. Yoshi wurde von den Gespenstern eingesperrt. Hilfst Du uns ihn zu befreien?"
                        , textColor = Color.White)
 
@@ -144,15 +144,16 @@ fun Aufgabe() {
         Column(modifier = Modifier.padding(16.dp)) {
             Spacer(modifier = Modifier.weight(1f)) // This adds flexible space between text and input
             GlowingText(
-                text = "Luigina hat mir erzählt, dass Gespenster den Brief mit Yoshis Gefängnis " +
-                        "versteckt haben. Sie hat die Gespenster belauscht " +
+                text = "Luigina hat mir erzählt, dass Gespenster den Brief versteckt haben, der " +
+                        "den Ort von Yoshis Gefängnis verrät. Sie hat die Gespenster belauscht " +
                         "und Hinweise aufgeschrieben. Aber Vorsicht, die Geister haben " +
                         "vielleicht absichtlich falsche Hinweise gegeben." +
                         "\n"+
                         "1. Finde Hinweise mit Dreiecken\n" +
                         "2. Finde Hinweise mit Fünfecken\n" +
                         "3. Finde Hinweise mit Vierecken. \n",
-                glowColor = Color.Red,
+
+                glowColor = Color.Blue,
                 textColor = Color.White,
                 alpha = 0.8f
             )
@@ -170,9 +171,9 @@ fun ColorChangingGlowingText(text: String, textColor: Color) {
 
     LaunchedEffect(key1 = "glow") {
         while (true) {
-            alpha.animateTo(1f, animationSpec = TweenSpec(2500, easing = LinearEasing))
+            alpha.animateTo(1f, animationSpec = TweenSpec(3500, easing = LinearEasing))
             delay(1500)  // Keep the glow at full intensity for a bit
-            alpha.animateTo(0f, animationSpec = TweenSpec(2500, easing = LinearEasing))
+            alpha.animateTo(0f, animationSpec = TweenSpec(3500, easing = LinearEasing))
             glowColor.animateTo(
                 colors[colorIndex],
                 animationSpec = TweenSpec(1000, easing = LinearEasing)
